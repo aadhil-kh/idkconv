@@ -1,4 +1,4 @@
-#!/usr/bin/python3.5
+#!/usr/bin/python3
 from gi.repository import Gtk
 import os,sys
 class Gui:
@@ -45,9 +45,18 @@ class Gui:
 			msg.run()
 			msg.destroy()
 			self.boo=False
+	def get_active_text(self):
+		model = self.combo.get_model()
+		active = self.combo.get_active()
+		if active < 0:
+			return None
+		return model[active][0]
 	def on_convert_clicked(self,button):
 		if self.boo:
-			os.system("avconv -i \""+self.name+"\" /home/"+os.getlogin()+"/out.mp3")
+			output_path=os.path.dirname(self.name)
+			output_filename=os.path.basename(self.name)
+			output_filename=output_path+"/"+output_filename.split(".")[0]+"."+self.get_active_text()
+			os.system("avconv -i \""+self.name+"\" \""+output_filename+"\"")
 			print(self.name)
 		else:
 			msg=Gtk.MessageDialog()
