@@ -82,10 +82,10 @@ class Gui:
 	def on_convert_clicked(self,button):
 		
 		#Check if file and format to convert is selected 
-		if self.file_selected and self.get_active_text():
+		if self.file_selected:
 			output_path=os.path.dirname(self.name)
-			output_filename=os.path.basename(self.name)
-			output_filename=output_path+"/"+output_filename.split(".")[0]+"."+self.get_active_text()
+			output_filename=self.destination.get_text()
+			output_filename=output_path+"/"+output_filename+"."+self.get_active_text()
 			
 			#conversion happens here
 			os.system("avconv -i \""+self.name+"\" \""+output_filename+"\"")
