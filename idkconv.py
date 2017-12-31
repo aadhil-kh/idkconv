@@ -1,6 +1,8 @@
 #!/usr/bin/python3
+
 from gi.repository import Gtk
 import os,sys
+
 class Gui:
 	
 	#constructor
@@ -21,6 +23,7 @@ class Gui:
 		self.combo.add_attribute(cellrenderertext, "text", 0)
 		self.window.show_all()
 		self.window.set_resizable(False)
+
 	#Exit on close
 	def on_window_destroy(self,window):
 		Gtk.main_quit()
@@ -47,6 +50,7 @@ class Gui:
 			self.combo.set_model(liststore)
 			self.set_source()
 		else:
+
 			#clear text in source,destination and liststore
 			self.combo.set_model(None)
 			self.builder.get_object('source').set_text("")
@@ -99,6 +103,8 @@ class Gui:
 		
 	def on_aboutdialog_delete_event(self,about,a):
 		self.about.hide()
+
+#Main function
 def main():
 	app=Gui()
 	Gtk.main()
