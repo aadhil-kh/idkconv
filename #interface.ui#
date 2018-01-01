@@ -76,6 +76,7 @@
   </object>
   <object class="GtkApplicationWindow" id="window">
     <property name="can_focus">False</property>
+    <property name="type">popup</property>
     <signal name="destroy" handler="on_window_destroy" swapped="no"/>
     <child>
       <object class="GtkBox" id="box1">

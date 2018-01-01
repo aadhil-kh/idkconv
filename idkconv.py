@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 import os,sys
 
@@ -11,7 +13,7 @@ class Gui:
 		
 		#build the UI
 		self.builder=Gtk.Builder()
-		self.builder.add_from_file('interface.ui')
+		self.builder.add_from_file('interfacee.ui')
 		self.builder.connect_signals(self)
 		self.window=self.builder.get_object('window')
 		self.about=self.builder.get_object('aboutdialog')
@@ -21,9 +23,9 @@ class Gui:
 		cellrenderertext = Gtk.CellRendererText()
 		self.combo.pack_start(cellrenderertext, True)
 		self.combo.add_attribute(cellrenderertext, "text", 0)
+		self.window.resize(600,400)
 		self.window.show_all()
-		self.window.set_resizable(False)
-
+		
 	#Exit on close
 	def on_window_destroy(self,window):
 		Gtk.main_quit()
@@ -66,7 +68,7 @@ class Gui:
 	#set the source filename
 	def set_source(self):
 		self.builder.get_object('source').set_text(self.name)
-		self.builder.get_object('destination').set_text(self.name[:-4])
+		self.builder.get_object('destination').set_text(os.path.basename(self.name[:-4]))
 		self.file_selected=True
 		self.combo.set_active(0)
 		
@@ -84,7 +86,7 @@ class Gui:
 		#Check if file and format to convert is selected 
 		if self.file_selected:
 			output_path=os.path.dirname(self.name)
-			output_filename=self.destination.get_text()
+			output_filename=self.builder.get_object('destination').get_text()
 			output_filename=output_path+"/"+output_filename+"."+self.get_active_text()
 			
 			#conversion happens here
